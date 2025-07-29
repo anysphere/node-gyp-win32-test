@@ -50,12 +50,13 @@ jobs:
           version: 9.12.3
           run_install: false
 
-      - name: npm install
+      - name: pnpm install
         shell: bash
         run: |
-          #npm ci || npm ci
+          pnpm node-gyp install --dist-url https://electronjs.org/headers 34.5.1
           pnpm install
         env:
+          npm_config_devdir: ${{ runner.temp }}/node-gyp
           # for ripgrep download
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # avoid slow downloads
