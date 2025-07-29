@@ -40,6 +40,11 @@ jobs:
             echo "npm_config_devdir=$GITHUB_WORKSPACE/node-cache" >> $GITHUB_ENV
           fi
 
+      - name: pslist
+        run: |
+          curl.exe -L -o PSTools.zip https://download.sysinternals.com/files/PSTools.zip
+          Expand-Archive -Path PSTools.zip -DestinationPath $PWD
+
       - name: npm install
         shell: bash
         run: |
@@ -52,6 +57,12 @@ jobs:
           ELECTRON_SKIP_BINARY_DOWNLOAD: 1
           # node-gyp spawns one compiler by default
           JOBS: 'MAX'
+
+      - name: list processes
+        run: |
+          pslist64.exe -accepteula -t
+          Get-Process
+          Get-WmiObject Win32_Process | Select-Object CommandLine | Format-Custom
 
       - name: list tlog
         shell: bash
