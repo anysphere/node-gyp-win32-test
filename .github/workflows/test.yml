@@ -53,6 +53,7 @@ jobs:
       - name: pnpm install
         shell: bash
         run: |
+          pnpm install -g node-gyp
           pnpm node-gyp install --dist-url https://electronjs.org/headers 34.5.1
           pnpm install
         env:
