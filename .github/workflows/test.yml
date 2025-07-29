@@ -5,7 +5,7 @@ on:
 jobs:
   windows:
     name: Windows
-    runs-on: cursor-win32-arm64
+    runs-on: cursor-win32-x64
     #runs-on: windows-latest
     #runs-on: windows-2022
     #runs-on: windows-11-arm
@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12.10"
 
       - name: Find where node-gyp is preinstalled
         shell: bash
@@ -41,6 +41,7 @@ jobs:
           fi
 
       - name: npm install
+        shell: bash
         run: |
           npm ci
         env:
@@ -51,3 +52,9 @@ jobs:
           ELECTRON_SKIP_BINARY_DOWNLOAD: 1
           # node-gyp spawns one compiler by default
           JOBS: 'MAX'
+
+      - name: list tlog
+        shell: bash
+        run: |
+          find node_modules -ls | grep tlog
+          find node_modules -ls | grep buildstate
