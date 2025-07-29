@@ -59,12 +59,14 @@ jobs:
           JOBS: 'MAX'
 
       - name: list processes
+        if: always()
         run: |
           pslist64.exe -accepteula -t
           Get-Process
           Get-WmiObject Win32_Process | Select-Object CommandLine | Format-Custom
 
       - name: list tlog
+        if: always()
         shell: bash
         run: |
           find node_modules -ls | grep tlog
