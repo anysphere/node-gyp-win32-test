@@ -43,7 +43,7 @@ jobs:
       - name: npm install
         shell: bash
         run: |
-          npm ci
+          npm ci || npm ci
         env:
           # for ripgrep download
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
